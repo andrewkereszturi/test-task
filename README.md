@@ -78,6 +78,7 @@ To create a new university:
 ```
 mutation {
   createUniversity(createUniversityInput: {name: "New University", cityId: 1}) {
+    id,
     name, 
     cityId
   }

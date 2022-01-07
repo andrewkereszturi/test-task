@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
+import { UniversitiesModule } from './universities/universities.module';
 
 
 @Module({
@@ -10,7 +11,8 @@ import { UsersModule } from './users/users.module';
     GraphQLModule.forRoot({
       autoSchemaFile: true
     }),
-    UsersModule
+    UsersModule,
+    UniversitiesModule
   ],
   controllers: [AppController],
   providers: [AppService],

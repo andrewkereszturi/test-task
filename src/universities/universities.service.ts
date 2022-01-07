@@ -3,18 +3,30 @@ import { CreateUniversityInput } from './dto/create-university.input';
 import { UpdateUniversityInput } from './dto/update-university.input';
 import { University } from './entities/university.entity';
 
-import { universities } from './universities.json';
+import { universities as universitiesJSON} from './universities.json';
+
+
 
 @Injectable()
 export class UniversitiesService {
   private universities: University[] = [];
+  private nextId: number;
+
 
   constructor() {
-    this.universities = universities.map(u => ({ id: u.id, name: u.name, cityId: u.city.id }));
-  }
+    this.universities = universitiesJSON.map(u => ({ id: u.id, name: u.name, cityId: u.city.id }));
+    this.nextId = this.universities[this.universities.length - 1].id + 1;
+   }
 
   create(createUniversityInput: CreateUniversityInput) {
-    return 'This action adds a new university';
+    const university: University = {
+      id: this.nextId++,
+      ...createUniversityInput
+    }
+    
+    this.universities.push(university)
+
+    return university;
   }
 
   findAll() {
@@ -22,11 +34,16 @@ export class UniversitiesService {
   }
 
   findOne(id: number) {
-    return universities.find(university => university.id === id);
+    return this.universities.find(university => university.id === id);
   }
 
   update(id: number, updateUniversityInput: UpdateUniversityInput) {
-    return `This action updates a #${id} university`;
+    const university = this.universities.find(university => university.id === updateUniversityInput.id)
+
+    Object.assign(university, updateUniversityInput)
+
+    return university;
+
   }
 
   remove(id: number) {

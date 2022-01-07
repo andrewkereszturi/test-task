@@ -71,3 +71,35 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+To get started run npm install
+
+npm run start
+
+navigate to http://localhost:3000/graphql
+
+to get all universities:
+
+{
+  universities {
+  	id,
+    name
+    city {
+      id,
+      name
+    }
+  }
+}
+
+to get one university by id
+{
+  universities {
+  	id,
+    name
+    city {
+      id,
+      name
+    }
+  }
+}

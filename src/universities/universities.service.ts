@@ -12,9 +12,10 @@ export class UniversitiesService {
   private universities: University[] = [];
   private nextId: number;
 
-
   constructor() {
     this.universities = universitiesJSON.map(u => ({ id: u.id, name: u.name, cityId: u.city.id }));
+
+    // This assumes universities are in ascending order by id
     this.nextId = this.universities[this.universities.length - 1].id + 1;
    }
 
@@ -43,7 +44,6 @@ export class UniversitiesService {
     Object.assign(university, updateUniversityInput)
 
     return university;
-
   }
 
   remove(id: number) {

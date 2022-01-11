@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { identity } from 'rxjs';
 import { City } from './entities/city.entity';
 import { universities } from './universities.json';
 
 @Injectable()
 export class CitiesService {
-  private cities: City[] = [];
+  private cities: { [id: number] : City; }  = {};
 
   constructor() {
+
     const allCities = universities.map(university => university.city);
-    const allUniqueCities = [];
     allCities.forEach(city => {
-      if (!allUniqueCities.find(c => c.id === city.id)) {
-        allUniqueCities.push({id: city.id, name: city.name, stateId: city.state.id});
+      if(!this.cities[city.id]){
+        this.cities[city.id] = {...city, stateId: city.state.id};
       }
-    })
-    this.cities = allUniqueCities;
+    })    
   }
 
   findAll() {
@@ -22,6 +22,6 @@ export class CitiesService {
   }
 
   findOne(id: number) {
-    return this.cities.find(city => city.id === id);
+    return this.cities[id];
   }
 }

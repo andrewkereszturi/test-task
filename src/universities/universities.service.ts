@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUniversityInput } from './dto/create-university.input';
 import { UpdateUniversityInput } from './dto/update-university.input';
 import { University } from './entities/university.entity';
@@ -24,10 +24,15 @@ export class UniversitiesService {
       id: this.nextId++,
       ...createUniversityInput
     }
-    
-    this.universities.push(university)
 
-    return university;
+    if (this.universities.find(university => university.cityId === createUniversityInput.cityId)) {
+      this.universities.push(university)
+      return university;
+    } else {
+       throw new NotFoundException('Not Found');
+    }
+    
+
   }
 
   findAll() {

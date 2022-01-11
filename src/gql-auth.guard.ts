@@ -8,6 +8,6 @@ export class GqlAuthGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
 
     // Change this boolean to allow mutations to run
-    return false;
+    return true;
   }
 }
